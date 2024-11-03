@@ -3,12 +3,14 @@ package com.example.oop_teamproject
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import android.view.View //추가 import, View.Gone으로 main의 버튼 사라지게 만듬.
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.oop_teamproject.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -18,6 +20,32 @@ class MainActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        binding.testButton.setOnClickListener {
+            binding.testButton.visibility = View.GONE
+            binding.testButton2.visibility = View.GONE
+            binding.kauText.visibility = View.GONE
+            binding.reservationText.visibility = View.GONE
+            binding.inputId.visibility = View.GONE
+            binding.inputPassword.visibility = View.GONE
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, BooklistFragment())
+                .addToBackStack(null) // 뒤로 가기 지원
+                .commit()
+        }
+
+        binding.testButton2.setOnClickListener {
+            binding.testButton.visibility = View.GONE
+            binding.testButton2.visibility = View.GONE
+            binding.kauText.visibility = View.GONE
+            binding.reservationText.visibility = View.GONE
+            binding.inputId.visibility = View.GONE
+            binding.inputPassword.visibility = View.GONE
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, CheckpageFragment())
+                .addToBackStack(null) // 뒤로 가기 지원
+                .commit()
         }
     }
 }

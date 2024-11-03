@@ -54,7 +54,7 @@
             android:id="@+id/txt_booklist"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="#66365094"
+            android:background="@drawable/rounded_background"
             android:gravity="center"
             android:text="도서목록"
             android:textAlignment="center"

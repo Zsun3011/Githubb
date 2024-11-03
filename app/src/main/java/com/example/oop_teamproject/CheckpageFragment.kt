@@ -5,28 +5,29 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.oop_teamproject.databinding.FragmentCheckpageBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CheckpageFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CheckpageFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    val reserves = arrayOf(
+        Reserved("번호", "분류", "이름", "수량", "가격", "선택"),
+        Reserved(1,"제본", "전공서적1", 1, 10000, "취소"),
+        Reserved(2,"제본", "전공서적2", 1, 15000, "취소"),
+        Reserved(3,"제본", "전공서적3", 1, 20000, "취소"),
+    )
+
+    private var _binding: FragmentCheckpageBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        /*
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        */
     }
 
     override fun onCreateView(
@@ -34,19 +35,24 @@ class CheckpageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_checkpage, container, false)
+        _binding = FragmentCheckpageBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // RecyclerView 설정
+        binding.recCheckpage.layoutManager = LinearLayoutManager(requireContext())
+        binding.recCheckpage.adapter = ReservesAdapter(reserves)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    /*
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CheckpageFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             CheckpageFragment().apply {
@@ -56,4 +62,5 @@ class CheckpageFragment : Fragment() {
                 }
             }
     }
+    */
 }
