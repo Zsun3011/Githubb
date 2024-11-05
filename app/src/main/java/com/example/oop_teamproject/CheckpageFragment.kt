@@ -11,7 +11,7 @@ import com.example.oop_teamproject.databinding.FragmentCheckpageBinding
 class CheckpageFragment : Fragment() {
 
     val reserves = arrayOf(
-        Reserved("번호", "분류", "이름", "수량", "가격", "선택"),
+        Reserved("번호", "분류", "이름", "수량", "가격", "선택"), //첫줄 목록
         Reserved(1,"제본", "전공서적1", 1, 10000, "취소"),
         Reserved(2,"제본", "전공서적2", 1, 15000, "취소"),
         Reserved(3,"제본", "전공서적3", 1, 20000, "취소"),

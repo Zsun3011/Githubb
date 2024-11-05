@@ -11,7 +11,7 @@ import com.example.oop_teamproject.databinding.FragmentBooklistBinding
 class BooklistFragment : Fragment() {
 
     val books = arrayOf(
-        Book("이름", "가격"),
+        Book("이름", "가격"), //첫줄 목록 (이 목록때문에 Any 필요함)
         Book("전공서적1", 10000),
         Book("전공서적2", 15000),
         Book("전공서적3", 20000),

@@ -22,7 +22,9 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        binding.testButton.setOnClickListener {
+        //이 아래의 코드는 테스트용 gogo! 버튼 세트를 위한 코드임.
+
+        binding.testButton.setOnClickListener { //View.GONE 기능은 버튼 눌러 화면 전환 했을 때, 이전 화면 지우기.
             binding.testButton.visibility = View.GONE
             binding.testButton2.visibility = View.GONE
             binding.kauText.visibility = View.GONE
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             binding.inputPassword.visibility = View.GONE
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, BooklistFragment())
-                .addToBackStack(null) // 뒤로 가기 지원
+                .addToBackStack(null) // 뒤로 가기 지원?
                 .commit()
         }
 
@@ -44,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             binding.inputPassword.visibility = View.GONE
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, CheckpageFragment())
-                .addToBackStack(null) // 뒤로 가기 지원
+                .addToBackStack(null) // 뒤로 가기 지원?
                 .commit()
         }
     }
