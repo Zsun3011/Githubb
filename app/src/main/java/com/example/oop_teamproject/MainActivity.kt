@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //이 아래의 코드는 테스트용 gogo! 버튼 세트를 위한 코드임.
+        //안녕~~~~~~~~~
 
         binding.testButton.setOnClickListener { //View.GONE 기능은 버튼 눌러 화면 전환 했을 때, 이전 화면 지우기.
             binding.testButton.visibility = View.GONE
