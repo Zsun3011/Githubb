@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PaymentSystem">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="결제"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:textStyle="normal"
+        />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:backgroundTint="#000"
+        android:layout_marginTop="30dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="30dp"
+            android:text="| 결제 금액"
+            android:textStyle="bold"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="15000원"
+            android:textStyle="normal"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="| 받을 날짜"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:padding="30dp"
+        />
+
+    <com.google.android.material.chip.Chip
+        android:text="2024.10.21 오전 11:00"
+        android:textSize="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="| 결제 수단 선택"
+        android:textStyle="bold"
+        android:padding="30dp"
+        android:textSize="20dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:layout_width="160dp"
+            android:layout_marginLeft="30dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#AFB9D4"
+            android:textColor="#365094"
+            android:text="계좌이체" />
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="0dp"/>
+
+        <Button
+            android:layout_width="160dp"
+            android:layout_gravity="right"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:backgroundTint="#AFB9D4"
+            android:textColor="#365094"
+            android:text="카드" />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="결제하기"
+        android:textSize="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="#000"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:backgroundTint="#365094"
+        >
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_marginTop="65dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:menu="@menu/bottom_nav_menu">
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+    </LinearLayout>
+
+</LinearLayout>
