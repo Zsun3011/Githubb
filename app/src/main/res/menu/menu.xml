@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/BookSearchFragment"
+        android:title="Find"
+        />
+
+    <item
+        android:id="@+id/BookreservFragmnet"
+        android:title="Book\nReserv"
+        />
+
+    <item
+        android:id="@+id/FilereservFragment"
+        android:title="File\nReserv"
+        />
+
+    <item
+        android:id="@+id/CheckpageFragment"
+        android:title="Check"
+        />
+
+</menu>
