@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.View //추가 import, View.Gone으로 main의 버튼 사라지게 만듬.
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import android.view.inputmethod.EditorInfo //추가. EditorInfo에서 오류 발생 막으려면 필요.
 import com.example.oop_teamproject.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +21,25 @@ class MainActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        //Password를 입력하고 엔터키를 누르면 BookSearchFragment로 이동하는 코드세트!
+        binding.inputPassword.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                binding.testButton.visibility = View.GONE
+                binding.testButton2.visibility = View.GONE
+                binding.kauText.visibility = View.GONE
+                binding.reservationText.visibility = View.GONE
+                binding.inputId.visibility = View.GONE
+                binding.inputPassword.visibility = View.GONE
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, BookSearchFragment())
+                    .addToBackStack(null)
+                    .commit()
+                true
+            } else {
+                false
+            }
         }
 
         //이 아래의 코드는 테스트용 gogo! 버튼 세트를 위한 코드임.
