@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                 binding.inputId.visibility = View.GONE
                 binding.inputPassword.visibility = View.GONE
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, BookSearchFragment())
+                    .replace(R.id.fragment_container, BooksearchFragment())
                     .addToBackStack(null)
                     .commit()
                 true
