@@ -6,16 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".BooksearchFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="검색"
-        android:textColor="#000"
-        android:textSize="20dp"
-        android:textStyle="normal"
-        tools:layout_editor_absoluteX="187dp"
-        tools:layout_editor_absoluteY="31dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="350dp"
