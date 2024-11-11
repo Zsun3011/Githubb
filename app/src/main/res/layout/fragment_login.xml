@@ -13,12 +13,12 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/fragment_container"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.262">
+        app:layout_constraintVertical_bias="0.187">
 
         <TextView
             android:id="@+id/kau_text"
@@ -48,12 +48,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/fragment_container"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.515">
+        app:layout_constraintVertical_bias="0.461">
 
         <EditText
             android:id="@+id/input_id"
@@ -82,33 +82,4 @@
             android:textColorHint="#365094" />
     </LinearLayout>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_container"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="771dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/fragment_container"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <View
-            android:id="@+id/tmp_area0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#365094" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
