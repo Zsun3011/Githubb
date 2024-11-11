@@ -3,21 +3,25 @@
     <item
         android:id="@+id/BooksearchFragment"
         android:title="Find"
+        android:icon="@drawable/search"
         />
 
     <item
         android:id="@+id/BookreservFragmnet"
         android:title="Book\nReserv"
+        android:icon="@drawable/frame"
         />
 
     <item
         android:id="@+id/FilereservFragment"
         android:title="File\nReserv"
+        android:icon="@drawable/frame__1_"
         />
 
     <item
         android:id="@+id/CheckpageFragment"
         android:title="Check"
+        android:icon="@drawable/check_square"
         />
 
 </menu>

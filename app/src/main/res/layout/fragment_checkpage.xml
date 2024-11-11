@@ -90,5 +90,4 @@
             android:layout_weight="1"
             android:background="#365094" />
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
