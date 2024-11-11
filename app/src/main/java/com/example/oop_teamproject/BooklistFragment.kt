@@ -12,9 +12,9 @@ class BooklistFragment : Fragment() {
 
     val books = arrayOf(
         Book("이름", "가격"), //첫줄 목록 (이 목록때문에 Any 필요함)
-        Book("전공서적1", 10000),
-        Book("전공서적2", 15000),
-        Book("전공서적3", 20000),
+        Book("Head First C", 34000),
+        Book("Kotlin in depth", 41000),
+        Book("꿈꾸는 인공지능", 17000)
     )
 
     private var _binding: FragmentBooklistBinding? = null

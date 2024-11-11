@@ -12,9 +12,10 @@ class CheckpageFragment : Fragment() {
 
     val reserves = arrayOf(
         Reserved("번호", "분류", "이름", "수량", "가격", "선택"), //첫줄 목록
-        Reserved(1,"제본", "전공서적1", 1, 10000, "취소"),
-        Reserved(2,"제본", "전공서적2", 1, 15000, "취소"),
-        Reserved(3,"제본", "전공서적3", 1, 20000, "취소"),
+        Reserved(1,"제본", "Head First C", 1, 34000, "취소"),
+        Reserved(2,"제본", "Kotlin in depth", 1, 41000, "취소"),
+        Reserved(3,"파일", "Kau.pdf", 1, 5000, "취소"),
+        Reserved(4,"제본", "꿈꾸는 인공지능", 1, 17000, "취소")
     )
 
     private var _binding: FragmentCheckpageBinding? = null
