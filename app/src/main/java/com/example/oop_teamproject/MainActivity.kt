@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
                     .replace(R.id.main_container, BooksearchFragment()).commit()
                 hideMainElements()
                 showBottomNavigation()
+                binding.toolbarTitle.text = "검색"
                 true
             } else {
                 false
