@@ -22,6 +22,13 @@ class MainActivity : AppCompatActivity() {
         hideBottomNavigation() // 초기에는 네비게이션 바를 숨기고 로그인 화면만 표시
         setBottomNavigationView()
 
+        // 툴바 설정
+        setSupportActionBar(binding.toolbar)
+        // 기본 제목 비활성화
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        // 툴바 제목 설정
+        binding.toolbarTitle.text = ""
+
         /*
         아래 코드는 일단 보류
         if (savedInstanceState == null) {
@@ -37,6 +44,7 @@ class MainActivity : AppCompatActivity() {
                     .replace(R.id.main_container, BooksearchFragment()).commit()
                 hideMainElements()
                 showBottomNavigation()
+                binding.toolbarTitle.text = "검색"
                 true
             } else {
                 false
@@ -51,6 +59,7 @@ class MainActivity : AppCompatActivity() {
                     hideMainElements()
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_container, BooksearchFragment()).commit()
+                    binding.toolbarTitle.text = "검색" //툴바 제목 업데이트
                     true
                 }
 
@@ -58,6 +67,7 @@ class MainActivity : AppCompatActivity() {
                     hideMainElements()
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_container, BookreservFragment()).commit()
+                    binding.toolbarTitle.text = "도서 제본 예약"
                     true
                 }
 
@@ -65,6 +75,7 @@ class MainActivity : AppCompatActivity() {
                     hideMainElements()
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_container, FilereservFragment()).commit()
+                    binding.toolbarTitle.text = "파일 복사 예약"
                     true
                 }
 
@@ -72,6 +83,7 @@ class MainActivity : AppCompatActivity() {
                     hideMainElements()
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_container, CheckpageFragment()).commit()
+                    binding.toolbarTitle.text = "조회 페이지"
                     true
                 }
 
