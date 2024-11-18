@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         // 기본 제목 비활성화
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        // 툴바 제목 설정
+        // 초기 툴바 제목 초기화
         binding.toolbarTitle.text = ""
 
         /*
