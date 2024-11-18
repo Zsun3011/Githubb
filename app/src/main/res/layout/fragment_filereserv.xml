@@ -92,10 +92,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="인쇄"
-        app:layout_constraintBottom_toBottomOf="@+id/spinner"
+        app:layout_constraintBottom_toBottomOf="@+id/types"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.072"
-        app:layout_constraintStart_toEndOf="@+id/spinner"
+        app:layout_constraintStart_toEndOf="@+id/types"
         app:layout_constraintTop_toBottomOf="@+id/editTextNumber3"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -104,11 +104,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="방향"
-        app:layout_constraintBottom_toBottomOf="@+id/spinner2"
+        app:layout_constraintBottom_toBottomOf="@+id/direction"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.072"
-        app:layout_constraintStart_toEndOf="@+id/spinner2"
-        app:layout_constraintTop_toBottomOf="@+id/spinner"
+        app:layout_constraintStart_toEndOf="@+id/direction"
+        app:layout_constraintTop_toBottomOf="@+id/types"
         app:layout_constraintVertical_bias="0.862" />
 
     <TextView
@@ -175,7 +175,7 @@
         tools:ignore="SpeakableTextPresentCheck"/>
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/types"
         android:layout_width="128dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
@@ -183,18 +183,20 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextNumber3" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/direction"
         android:layout_width="128dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="@+id/spinner"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintStart_toStartOf="@+id/types"
+        app:layout_constraintTop_toBottomOf="@+id/types" />
 
     <Spinner
-        android:id="@+id/spinner3"
+        android:id="@+id/colors"
         android:layout_width="128dp"
         android:layout_height="48dp"
         android:layout_marginTop="25dp"
-        app:layout_constraintStart_toStartOf="@+id/spinner2"
-        app:layout_constraintTop_toBottomOf="@+id/spinner2" />
+        app:layout_constraintStart_toStartOf="@+id/direction"
+        app:layout_constraintTop_toBottomOf="@+id/direction" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
