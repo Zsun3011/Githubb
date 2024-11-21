@@ -1,21 +1,25 @@
 package com.example.oop_teamproject
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.oop_teamproject.databinding.FragmentBooklistBinding
-import com.google.firebase.database.* //firebase database 임포트
+import com.example.oop_teamproject.repository.BooksRepository
+import com.example.oop_teamproject.viewmodel.BooksViewModel
 
 class BooklistFragment : Fragment() {
 
     private var _binding: FragmentBooklistBinding? = null
     private val binding get() = _binding!!
-    private lateinit var database: DatabaseReference
-    private val selectedBooks = mutableListOf<Book>()
+
+    // ViewModel 생성 (BooksViewModel의 companion object Factory 사용)
+    private val viewModel: BooksViewModel by viewModels {
+        BooksViewModel.Companion.Factory(BooksRepository())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +37,6 @@ class BooklistFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentBooklistBinding.inflate(inflater, container, false)
-        database = FirebaseDatabase.getInstance().getReference("books")
         return binding.root
     }
 
@@ -42,26 +45,16 @@ class BooklistFragment : Fragment() {
         //Recycler view 설정
         binding.recBooklists.layoutManager = LinearLayoutManager(requireContext())
 
-        // Firebase에서 특정 책 ID에 해당하는 데이터만 가져오기
         val bookIDs = listOf("booksID01", "booksID02", "booksID03", "booksID05")
 
-        database.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                selectedBooks.clear()
-                for (id in bookIDs) {
-                    val bookSnapshot = snapshot.child(id)
-                    val name = bookSnapshot.child("name").getValue(String::class.java) ?: "Unknown"
-                    val price = bookSnapshot.child("price").getValue(Int::class.java) ?: 0
-                    selectedBooks.add(Book(name, price))
-                }
-                // RecyclerView 어댑터 설정
-                binding.recBooklists.adapter = BooksAdapter(selectedBooks.toTypedArray())
-            }
+        // ViewModel의 LiveData 관찰
+        viewModel.books.observe(viewLifecycleOwner) { books ->
+            // RecyclerView 어댑터 설정
+            binding.recBooklists.adapter = BooksAdapter(books.toTypedArray())
+        }
 
-            override fun onCancelled(error: DatabaseError) {
-                Log.e("Firebase", "Failed to load books", error.toException())
-            }
-        })
+        // 책 데이터를 ViewModel을 통해 가져오기
+        viewModel.fetchBooks(bookIDs)
     }
 
     override fun onDestroyView() {
