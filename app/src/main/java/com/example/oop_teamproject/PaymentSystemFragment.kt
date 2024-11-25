@@ -23,7 +23,6 @@ class PaymentSystemFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPaymentSystemBinding.inflate(inflater)
-
         return binding?.root
     }
 
@@ -35,13 +34,6 @@ class PaymentSystemFragment : Fragment() {
         usersViewModel = ViewModelProvider(requireActivity()).get(UsersViewmodel::class.java)
         textView = view.findViewById(R.id.dataset) // TextView ID에 맞게 수정
 
-        // 마지막으로 저장된 파일 정보 가져오기
-        val lastFile = usersViewModel.getLastSavedFileItem()
-        if (lastFile != null) {
-            displayFileInfo(lastFile) // 파일 정보 표시
-        } else {
-            textView.text = "저장된 인쇄 정보가 없습니다." // 데이터가 없을 경우 메시지 표시
-        }
 
         binding?.gotohome?.setOnClickListener{
             findNavController().navigate(R.id.action_paymentSystemFragment_to_booksearchFragment)
@@ -51,16 +43,5 @@ class PaymentSystemFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
-    }
-
-    private fun displayFileInfo(fileItem: FileItem) {
-        val info = """
-            색상: ${fileItem.color}
-            방향: ${fileItem.direction}
-            페이지: ${fileItem.page}
-            수량: ${fileItem.quantity}
-            유형: ${fileItem.type}
-        """.trimIndent()
-        textView.text = info // TextView에 표시
     }
 }
