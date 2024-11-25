@@ -1,10 +1,12 @@
 package com.example.oop_teamproject
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.oop_teamproject.databinding.FragmentFilereservBinding // ViewBinding 임포트
 import com.example.oop_teamproject.model.FileItem
 import com.example.oop_teamproject.viewmodel.UsersViewmodel
+import com.example.oop_teamproject.viewmodel.FilesViewmodel
 
 class FilereservFragment : Fragment() {
 
@@ -23,6 +26,7 @@ class FilereservFragment : Fragment() {
     private val colorOptions = arrayOf("흑백", "컬러")
 
     private lateinit var usersViewModel: UsersViewmodel
+    private lateinit var filesViewModel: FilesViewmodel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,57 +40,73 @@ class FilereservFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         usersViewModel = ViewModelProvider(this).get(UsersViewmodel::class.java)
-
+        filesViewModel = ViewModelProvider(this).get(FilesViewmodel::class.java)
         // Spinner 설정
         setupSpinners()
 
-        // 데이터 저장 버튼 클릭 리스너
-        binding.saveButton.setOnClickListener {
-            saveData()
-        }
+        // 버튼 클릭 리스너
+        binding.saveButton.setOnClickListener { saveData() }
+        binding.fileupload.setOnClickListener { uploadFile() }
 
     }
 
     private fun setupSpinners() {
-        val typeAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, typeOptions)
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.types.adapter = typeAdapter
+        setupSpinner(binding.types, typeOptions)
+        setupSpinner(binding.direction, directionOptions)
+        setupSpinner(binding.colors, colorOptions)
+    }
 
-        val directionAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, directionOptions)
-        directionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.direction.adapter = directionAdapter
-
-        val colorAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, colorOptions)
-        colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.colors.adapter = colorAdapter
+    private fun setupSpinner(spinner: Spinner, options: Array<String>) {
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, options)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
     }
 
     private fun saveData() {
+        // 입력 값 가져오기
         val page = binding.editTextText.text.toString()
-        val quantity = binding.editTextNumber3.text.toString().toIntOrNull() ?: 0
-        val type = binding.types.selectedItem.toString()
-        val direc = binding.direction.selectedItem.toString()
-        val color = binding.colors.selectedItem.toString()
+        val quantity = binding.editTextNumber3.text.toString().toIntOrNull()
 
-        // FileItem 객체 생성
+        // 입력 유효성 검사
+        if (page.isEmpty() || quantity == null || quantity <= 0) {
+            Toast.makeText(requireContext(), "인쇄설정을 선택해주세요", Toast.LENGTH_SHORT).show()
+            return // 유효하지 않다면 함수 종료
+        }
+
+        // FileItem 생성
         val fileItem = FileItem(
-            color = color,
-            direction = direc,
             page = page,
             quantity = quantity,
-            type = type
+            type = binding.types.selectedItem.toString(),
+            direction = binding.direction.selectedItem.toString(),
+            color = binding.colors.selectedItem.toString(),
+            name = binding.filename.text.toString()
         )
-
 
         // ViewModel을 통해 데이터 저장
         usersViewModel.saveFileItem(fileItem)
-        Toast.makeText(requireContext(), "데이터가 저장되었습니다.", Toast.LENGTH_SHORT).show()
 
+        // 네비게이션
         findNavController().navigate(R.id.action_filereservFragment_to_paymentSystemFragment)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null // 메모리 누수 방지를 위해 binding 해제
+    private fun uploadFile() {
+        filesViewModel.fetchFiles() // Use ViewModel to fetch files
+        filesViewModel.fileNames.observe(viewLifecycleOwner) { fileNames ->
+            if (fileNames.isNotEmpty()) {
+                showFileSelectionDialog(fileNames) // Show dialog with fetched file names
+            }
+        }
+    }
+    private fun showFileSelectionDialog(fileNames: List<String>) {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("파일 선택")
+            setItems(fileNames.toTypedArray()) { _, which ->
+                // 선택한 파일 이름을 TextView에 설정
+                binding.filename.setText(fileNames[which])
+            }
+            setNegativeButton("취소", null)
+            show()
+        }
     }
 }
