@@ -14,15 +14,10 @@ import com.example.oop_teamproject.viewmodel.BooksViewModel
 
 class BooklistFragment : Fragment() {
 
-    private var _binding: FragmentBooklistBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentBooklistBinding? = null
 
     private val viewModel: BooksViewModel by viewModels {
         BooksViewModel.Companion.Factory(BooksRepository())
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
@@ -30,33 +25,34 @@ class BooklistFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentBooklistBinding.inflate(inflater, container, false)
-        return binding.root
+        binding = FragmentBooklistBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recBooklists.layoutManager = LinearLayoutManager(requireContext())
+        binding?.apply {
+            recBooklists.layoutManager = LinearLayoutManager(requireContext())
 
-        val bookIDs = listOf("booksID01", "booksID02", "booksID03", "booksID05")
+            val bookIDs = listOf("booksID01", "booksID02", "booksID03", "booksID05")
 
-        viewModel.books.observe(viewLifecycleOwner) { books ->
-            binding.recBooklists.adapter = BooksAdapter(books.toTypedArray()) { selectedBook ->
-                val bundle = Bundle().apply {
-                    putString("bookName", selectedBook.name)
-                    putInt("bookPrice", selectedBook.price)
+            viewModel.books.observe(viewLifecycleOwner) { books ->
+                recBooklists.adapter = BooksAdapter(books.toTypedArray()) { selectedBook ->
+                    val bundle = Bundle().apply {
+                        putString("bookName", selectedBook.name)
+                        putInt("bookPrice", selectedBook.price)
+                    }
+                    findNavController().navigate(R.id.action_booklistFragment_to_bookreservFragment, bundle)
                 }
-
-                findNavController().navigate(R.id.action_booklistFragment_to_bookreservFragment, bundle)
             }
-        }
 
-        viewModel.fetchBooks(bookIDs)
+            viewModel.fetchBooks(bookIDs)
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding = null
     }
 }
