@@ -41,14 +41,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/gotoBookreserv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="292dp"
-        android:text="gotoreserv"
-        app:layout_constraintBottom_toBottomOf="@+id/rec_booklists"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/rec_booklists" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

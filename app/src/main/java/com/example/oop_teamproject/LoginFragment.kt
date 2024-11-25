@@ -10,16 +10,15 @@ import com.example.oop_teamproject.databinding.FragmentLoginBinding
 import androidx.navigation.fragment.findNavController
 class LoginFragment : Fragment() {
 
-    private var _binding: FragmentLoginBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentLoginBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
-        return binding.root
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,7 +27,7 @@ class LoginFragment : Fragment() {
 
 
         // 패스워드 입력 시 엔터를 누르면 BooksearchFragment로 이동
-        binding.inputPassword.setOnEditorActionListener { _, actionId, _ ->
+        binding?.inputPassword?.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 // 로그인 성공 시 BooksearchFragment로 이동
                 findNavController().navigate(R.id.action_loginFragment_to_booksearchFragment)
@@ -41,6 +40,6 @@ class LoginFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // 메모리 누수 방지를 위해 binding 해제
+        binding = null // 메모리 누수 방지를 위해 binding 해제
     }
 }

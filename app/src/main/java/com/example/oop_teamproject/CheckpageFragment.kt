@@ -18,8 +18,7 @@ class CheckpageFragment : Fragment() {
         Reserved(4,"제본", "꿈꾸는 인공지능", 1, 17000, "취소")
     )
 
-    private var _binding: FragmentCheckpageBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentCheckpageBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,20 +35,22 @@ class CheckpageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentCheckpageBinding.inflate(inflater, container, false)
-        return binding.root
+        binding = FragmentCheckpageBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // RecyclerView 설정
-        binding.recCheckpage.layoutManager = LinearLayoutManager(requireContext())
-        binding.recCheckpage.adapter = ReservesAdapter(reserves)
+        binding?.apply {
+            recCheckpage.layoutManager = LinearLayoutManager(requireContext())
+            recCheckpage.adapter = ReservesAdapter(reserves)
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding = null
     }
 
     /*

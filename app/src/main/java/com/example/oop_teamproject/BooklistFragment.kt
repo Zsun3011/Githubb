@@ -14,22 +14,10 @@ import com.example.oop_teamproject.viewmodel.BooksViewModel
 
 class BooklistFragment : Fragment() {
 
-    private var _binding: FragmentBooklistBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentBooklistBinding? = null
 
-    // ViewModel 생성 (BooksViewModel의 companion object Factory 사용)
     private val viewModel: BooksViewModel by viewModels {
         BooksViewModel.Companion.Factory(BooksRepository())
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        /*
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-        */
     }
 
     override fun onCreateView(
@@ -37,45 +25,34 @@ class BooklistFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentBooklistBinding.inflate(inflater, container, false)
-        return binding.root
+        binding = FragmentBooklistBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //Recycler view 설정
-        binding.recBooklists.layoutManager = LinearLayoutManager(requireContext())
 
-        val bookIDs = listOf("booksID01", "booksID02", "booksID03", "booksID05")
+        binding?.apply {
+            recBooklists.layoutManager = LinearLayoutManager(requireContext())
 
-        // ViewModel의 LiveData 관찰
-        viewModel.books.observe(viewLifecycleOwner) { books ->
-            // RecyclerView 어댑터 설정
-            binding.recBooklists.adapter = BooksAdapter(books.toTypedArray())
-        }
+            val bookIDs = listOf("booksID01", "booksID02", "booksID03", "booksID05")
 
-        // 책 데이터를 ViewModel을 통해 가져오기
-        viewModel.fetchBooks(bookIDs)
-        binding?.gotoBookreserv?.setOnClickListener{
-            findNavController().navigate(R.id.action_booklistFragment_to_bookreservFragment)
+            viewModel.books.observe(viewLifecycleOwner) { books ->
+                recBooklists.adapter = BooksAdapter(books.toTypedArray()) { selectedBook ->
+                    val bundle = Bundle().apply {
+                        putString("bookName", selectedBook.name)
+                        putInt("bookPrice", selectedBook.price)
+                    }
+                    findNavController().navigate(R.id.action_booklistFragment_to_bookreservFragment, bundle)
+                }
+            }
+
+            viewModel.fetchBooks(bookIDs)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding = null
     }
-
-    /*
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            BooklistFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
-    */
 }
