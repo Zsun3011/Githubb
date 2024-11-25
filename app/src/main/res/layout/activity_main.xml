@@ -2,127 +2,48 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <FrameLayout
-        android:id="@+id/main_container"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="419dp"
+        android:layout_height="80dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/frame_background"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="@+id/bottomNavigationView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        android:layout_height="1dp"
+        android:background="#B1565151"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-            <TextView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
-        </androidx.appcompat.widget.Toolbar>
-
-
-
-    </FrameLayout>
-
-
-    <LinearLayout
-        android:id="@+id/title_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.187">
-
-        <TextView
-            android:id="@+id/kau_text"
-            android:layout_width="82dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/rect_background"
-            android:padding="8dp"
-            android:text="KAU"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/reservation_text"
-            android:layout_width="411dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="CopyCall\nReservation"
-            android:textAlignment="center"
-            android:textColor="#4A5D9D"
-            android:textSize="40sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/input_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.461">
-
-        <EditText
-            android:id="@+id/input_id"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_background"
-            android:gravity="center"
-            android:hint="아이디 입력"
-            android:padding="12dp"
-            android:textAlignment="viewStart"
-            android:textColor="#365094"
-            android:textColorHint="#365094" />
-
-        <EditText
-            android:id="@+id/input_password"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/rounded_background"
-            android:gravity="center"
-            android:hint="비밀번호 입력"
-            android:inputType="textPassword"
-            android:padding="12dp"
-            android:textAlignment="viewStart"
-            android:textColor="#365094"
-            android:textColorHint="#365094" />
-    </LinearLayout>
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_main" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
+        android:id="@+id/bottomNav"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/rect_background"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:labelVisibilityMode="labeled"
-        app:itemTextColor="#ffffff"
-        android:background="#365094"
-        app:menu="@menu/menu"
-        />
+        app:layout_constraintStart_toStartOf="@+id/toolbar"
+        app:menu="@menu/menu" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.oop_teamproject.LoginFragment"
+        tools:layout="@layout/fragment_login"
+        android:label="fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_booksearchFragment"
+            app:destination="@id/booksearchFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/booksearchFragment"
+        android:name="com.example.oop_teamproject.BooksearchFragment"
+        android:label="도서검색"
+        tools:layout="@layout/fragment_booksearch">
+        <action
+            android:id="@+id/action_booksearchFragment_to_booklistFragment"
+            app:destination="@id/booklistFragment" />
+        <action
+            android:id="@+id/action_booksearchFragment_to_filereservFragment"
+            app:destination="@id/filereservFragment" />
+        <action
+            android:id="@+id/action_booksearchFragment_to_checkpageFragment"
+            app:destination="@id/checkpageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/filereservFragment"
+        android:name="com.example.oop_teamproject.FilereservFragment"
+        android:label="파일 복사"
+        tools:layout="@layout/fragment_filereserv">
+        <action
+            android:id="@+id/action_filereservFragment_to_paymentSystemFragment"
+            app:destination="@id/paymentSystemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookreservFragment"
+        android:name="com.example.oop_teamproject.BookreservFragment"
+        android:label="도서 제본"
+        tools:layout="@layout/fragment_bookreserv">
+        <action
+            android:id="@+id/action_bookreservFragment_to_paymentSystemFragment"
+            app:destination="@id/paymentSystemFragment" />
+        <action
+            android:id="@+id/action_bookreservFragment_to_booklistFragment"
+            app:destination="@id/booklistFragment"
+            app:popUpTo="@id/booksearchFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkpageFragment"
+        android:name="com.example.oop_teamproject.CheckpageFragment"
+        android:label="예약 조회"
+        tools:layout="@layout/fragment_checkpage" />
+    <fragment
+        android:id="@+id/booklistFragment"
+        android:name="com.example.oop_teamproject.BooklistFragment"
+        android:label="도서목록"
+        tools:layout="@layout/fragment_booklist">
+        <action
+            android:id="@+id/action_booklistFragment_to_bookreservFragment"
+            app:destination="@id/bookreservFragment" />
+        <action
+            android:id="@+id/action_booklistFragment_to_booksearchFragment"
+            app:destination="@id/booksearchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentSystemFragment"
+        android:name="com.example.oop_teamproject.PaymentSystemFragment"
+        android:label="결제"
+        tools:layout="@layout/fragment_payment_system">
+        <action
+            android:id="@+id/action_paymentSystemFragment_to_filereservFragment"
+            app:destination="@id/filereservFragment" />
+        <action
+            android:id="@+id/action_paymentSystemFragment_to_bookreservFragment"
+            app:destination="@id/bookreservFragment" />
+        <action
+            android:id="@+id/action_paymentSystemFragment_to_booksearchFragment"
+            app:destination="@id/booksearchFragment" />
+    </fragment>
+
+</navigation>

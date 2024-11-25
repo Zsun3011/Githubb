@@ -113,18 +113,4 @@
         app:layout_constraintVertical_bias="0.13"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:gravity="center"
-        android:text="예약하기"
-        android:textSize="20sp"
-        android:backgroundTint="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

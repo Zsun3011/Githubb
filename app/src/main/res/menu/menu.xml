@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group />
     <item
-        android:id="@+id/BooksearchFragment"
+        android:id="@+id/booksearchFragment"
         android:title="Find"
-        android:icon="@drawable/search"
-        />
+        android:icon="@drawable/search"/>
 
     <item
-        android:id="@+id/BookreservFragmnet"
-        android:title="Book\nReserv"
+        android:id="@+id/bookreservFragment"
         android:icon="@drawable/frame"
-        />
+        android:title="Book"/>
 
     <item
-        android:id="@+id/FilereservFragment"
-        android:title="File\nReserv"
+        android:id="@+id/filereservFragment"
         android:icon="@drawable/frame__1_"
-        />
+        android:title="File" />
 
     <item
-        android:id="@+id/CheckpageFragment"
+        android:id="@+id/checkpageFragment"
         android:title="Check"
         android:icon="@drawable/check_square"
         />
