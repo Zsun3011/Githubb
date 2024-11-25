@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.oop_teamproject.databinding.FragmentBooklistBinding
 import com.example.oop_teamproject.repository.BooksRepository
@@ -55,6 +56,9 @@ class BooklistFragment : Fragment() {
 
         // 책 데이터를 ViewModel을 통해 가져오기
         viewModel.fetchBooks(bookIDs)
+        binding?.gotoBookreserv?.setOnClickListener{
+            findNavController().navigate(R.id.action_booklistFragment_to_bookreservFragment)
+        }
     }
 
     override fun onDestroyView() {

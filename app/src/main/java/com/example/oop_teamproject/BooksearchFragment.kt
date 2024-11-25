@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.navigation.fragment.findNavController
+import com.example.oop_teamproject.databinding.FragmentBooksearchBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +24,8 @@ class BooksearchFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    var binding: FragmentBooksearchBinding? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,25 +38,29 @@ class BooksearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentBooksearchBinding.inflate((inflater))
+
         // Inflate the layout for this fragment
         //이부분 살짝 바꿨음. return 중복. 원래는 val view = ~~이 아닌, return inflater~~였습니다.
         val view = inflater.inflate(R.layout.fragment_booksearch, container, false)
 
-        //여기부터~~~
-        // tmp_btn 버튼에 클릭 리스너 추가
-        val tmpButton: Button = view.findViewById(R.id.tmp_btn)
-        tmpButton.setOnClickListener {
-            // BooklistFragment로 화면 전환
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.main_container, BooklistFragment()) // fragment_container의 정확한 ID를 사용해야 함.
-                .addToBackStack(null)
-                .commit()
-        }
 
-        return view
+        return binding?.root
         //~~~여기까지가 임시 버튼용 코드예요!
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?){
+        super.onViewCreated(view, savedInstanceState)
+
+        binding?.btnlist?.setOnClickListener{
+            findNavController().navigate(R.id.action_booksearchFragment_to_booklistFragment)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of

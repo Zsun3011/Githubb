@@ -1,86 +1,92 @@
 package com.example.oop_teamproject
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.oop_teamproject.repository.UsersRepository
-import com.example.oop_teamproject.viewmodel.UsersViewmodel // 올바른 경로로 임포트
+import androidx.navigation.fragment.findNavController
+import com.example.oop_teamproject.databinding.FragmentFilereservBinding // ViewBinding 임포트
+import com.example.oop_teamproject.model.FileItem
+import com.example.oop_teamproject.viewmodel.UsersViewmodel
 
 class FilereservFragment : Fragment() {
+
+    private var _binding: FragmentFilereservBinding? = null
+    private val binding get() = _binding!!
 
     private val typeOptions = arrayOf("양면", "단면")
     private val directionOptions = arrayOf("가로", "세로")
     private val colorOptions = arrayOf("흑백", "컬러")
 
-    private lateinit var editTextText: EditText
-    private lateinit var editTextNumber3: EditText
     private lateinit var usersViewModel: UsersViewmodel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_filereserv, container, false)
+        _binding = FragmentFilereservBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        editTextText = view.findViewById(R.id.editTextText)
-        editTextNumber3 = view.findViewById(R.id.editTextNumber3)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val typeSpinner: Spinner = view.findViewById(R.id.types)
-        val directionSpinner: Spinner = view.findViewById(R.id.direction)
-        val colorSpinner: Spinner = view.findViewById(R.id.colors)
+        usersViewModel = ViewModelProvider(this).get(UsersViewmodel::class.java)
 
+        // Spinner 설정
+        setupSpinners()
+
+        // 데이터 저장 버튼 클릭 리스너
+        binding.saveButton.setOnClickListener {
+            saveData()
+        }
+
+    }
+
+    private fun setupSpinners() {
         val typeAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, typeOptions)
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        typeSpinner.adapter = typeAdapter
+        binding.types.adapter = typeAdapter
 
         val directionAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, directionOptions)
         directionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        directionSpinner.adapter = directionAdapter
+        binding.direction.adapter = directionAdapter
 
         val colorAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, colorOptions)
         colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        colorSpinner.adapter = colorAdapter
+        binding.colors.adapter = colorAdapter
+    }
 
-        // UsersRepository 인스턴스 생성
-        val repository = UsersRepository()
-        // ViewModel 초기화 (Factory 없이)
-        usersViewModel = ViewModelProvider(this).get(UsersViewmodel::class.java)
+    private fun saveData() {
+        val page = binding.editTextText.text.toString()
+        val quantity = binding.editTextNumber3.text.toString().toIntOrNull() ?: 0
+        val type = binding.types.selectedItem.toString()
+        val direc = binding.direction.selectedItem.toString()
+        val color = binding.colors.selectedItem.toString()
 
-        // 데이터 저장 버튼 클릭 리스너
-        view.findViewById<Button>(R.id.saveButton).setOnClickListener {
-            val page = editTextText.text.toString()
-            val quantity = editTextNumber3.text.toString().toIntOrNull() ?: 0
-            val type = typeSpinner.selectedItem.toString()
-            val direc = directionSpinner.selectedItem.toString()
-            val color = colorSpinner.selectedItem.toString()
+        // FileItem 객체 생성
+        val fileItem = FileItem(
+            color = color,
+            direction = direc,
+            page = page,
+            quantity = quantity,
+            type = type
+        )
 
-            val fileItem = mapOf(
-                "color" to color,
-                "direc" to direc,
-                "page" to page,
-                "quantity" to quantity,
-                "type" to type
-            )
 
-            // ViewModel을 통해 데이터 저장
-            usersViewModel.saveFileItem(fileItem)
-            Toast.makeText(requireContext(), "데이터가 저장되었습니다.", Toast.LENGTH_SHORT).show()
+        // ViewModel을 통해 데이터 저장
+        usersViewModel.saveFileItem(fileItem)
+        Toast.makeText(requireContext(), "데이터가 저장되었습니다.", Toast.LENGTH_SHORT).show()
 
-            // PaymentSystemFragment로 화면 전환
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.main_container, PaymentSystemFragment()) // fragment_container의 정확한 ID를 사용해야 함.
-                .addToBackStack(null)
-                .commit()
-        }
+        findNavController().navigate(R.id.action_filereservFragment_to_paymentSystemFragment)
+    }
 
-        return view
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // 메모리 누수 방지를 위해 binding 해제
     }
 }

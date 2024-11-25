@@ -8,11 +8,15 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
+import androidx.navigation.fragment.findNavController
+import com.example.oop_teamproject.databinding.FragmentBookreservBinding
 
 
 class BookreservFragment : Fragment() {
 
     private lateinit var editTextNumber: EditText
+
+    var binding : FragmentBookreservBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,7 +28,20 @@ class BookreservFragment : Fragment() {
         //EditText 초기화
         editTextNumber = view.findViewById(R.id.editTextNumber)
 
+        binding = FragmentBookreservBinding.inflate(inflater)
 
-        return view
+        return binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding?.gotopayment?.setOnClickListener{
+            findNavController().navigate(R.id.action_bookreservFragment_to_paymentSystemFragment)
+        }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 }
