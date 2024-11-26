@@ -19,16 +19,4 @@ class UsersRepository {
         // 새로운 항목 저장
         ref.child(newKey).setValue(fileItem).await()
     }
-
-    // 모든 사용자 파일 정보를 가져옴
-    suspend fun getFiles(): List<Map<String, Any>> {
-        val snapshot = ref.get().await()
-        val files = mutableListOf<Map<String, Any>>()
-
-        for (child in snapshot.children) {
-            val item = child.value as Map<String, Any>
-            files.add(item)
-        }
-        return files
-    }
 }

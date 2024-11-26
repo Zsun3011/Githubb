@@ -68,10 +68,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="페이지"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextText"
+        app:layout_constraintBottom_toBottomOf="@+id/filepage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.039"
-        app:layout_constraintStart_toEndOf="@+id/editTextText"
+        app:layout_constraintStart_toEndOf="@+id/filepage"
         app:layout_constraintTop_toBottomOf="@+id/textView16"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -80,11 +80,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="수량"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextNumber3"
+        app:layout_constraintBottom_toBottomOf="@+id/filequantity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.037"
-        app:layout_constraintStart_toEndOf="@+id/editTextNumber3"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText"
+        app:layout_constraintStart_toEndOf="@+id/filequantity"
+        app:layout_constraintTop_toBottomOf="@+id/filepage"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -96,7 +96,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.072"
         app:layout_constraintStart_toEndOf="@+id/types"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber3"
+        app:layout_constraintTop_toBottomOf="@+id/filequantity"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -150,14 +150,14 @@
 
 
     <EditText
-        android:id="@+id/editTextNumber3"
+        android:id="@+id/filequantity"
         android:layout_width="72dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="number"
-        app:layout_constraintStart_toStartOf="@+id/editTextText"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText"
+        app:layout_constraintStart_toStartOf="@+id/filepage"
+        app:layout_constraintTop_toBottomOf="@+id/filepage"
         tools:ignore="SpeakableTextPresentCheck"/>
 
     <Spinner
@@ -165,8 +165,8 @@
         android:layout_width="128dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="@+id/editTextNumber3"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber3" />
+        app:layout_constraintStart_toStartOf="@+id/filequantity"
+        app:layout_constraintTop_toBottomOf="@+id/filequantity" />
 
     <Spinner
         android:id="@+id/direction"
@@ -199,7 +199,7 @@
         app:layout_constraintVertical_bias="0.471" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/filepage"
         android:layout_width="72dp"
         android:layout_height="48dp"
         android:layout_marginTop="15dp"

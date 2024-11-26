@@ -34,14 +34,13 @@ class UsersViewmodel : ViewModel() {
     }
 
     // FileItem을 Map으로 변환하는 확장 함수
-    private fun FileItem.toMap(): Map<String, Any> {
-        return mapOf(
+    private fun FileItem.toMap(): Map<String, Any> = mapOf(
             "color" to color,
             "direction" to direction,
             "page" to page,
             "quantity" to quantity,
             "type" to type,
-            "name" to name // name 추가
-        )
-    }
+            "name" to name
+    )
+
 }
