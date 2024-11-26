@@ -15,9 +15,9 @@ class BooksViewModel(private val repository: BooksRepository) : ViewModel() {
     val books: LiveData<List<Book>> get() = _books
 
     fun fetchBooks(bookIDs: List<String>) {
-        viewModelScope.launch {
+        viewModelScope.launch { //viewModelScope -> 코루틴 시작
             try {
-                val bookList = repository.getBooksByIds(bookIDs)
+                val bookList = repository.getBooksByIds(bookIDs) //repository로 책 데이터 가져오기
                 _books.value = bookList
             } catch (e: Exception) {
                 _books.value = emptyList()
