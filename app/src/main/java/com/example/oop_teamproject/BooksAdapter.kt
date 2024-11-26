@@ -28,7 +28,7 @@ class BooksAdapter(
         fun bind(book: Book) {
             binding.txtName.text = book.name
             binding.txtPrice.text = book.price.toString()
-            binding.root.setOnClickListener {
+            binding.root.setOnClickListener { //setOnClickListener로 클릭 이벤트 추가
                 onItemClicked(book)
             }
         }

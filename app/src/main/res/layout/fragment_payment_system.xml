@@ -33,7 +33,7 @@
             android:layout_weight="1"
             android:padding="30dp"
             android:text="| 결제 금액"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
@@ -41,7 +41,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
-            android:text="15000원"
             android:textSize="20sp"
             android:textStyle="normal" />
     </LinearLayout>
@@ -51,7 +50,7 @@
         android:layout_height="wrap_content"
         android:padding="30dp"
         android:text="| 받을 날짜"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <com.google.android.material.chip.Chip
@@ -59,14 +58,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:text="2024.10.21 오전 11:00"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="30dp"
         android:text="| 결제 수단 선택"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -103,7 +102,7 @@
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
-        android:backgroundTint="#000"
+        android:backgroundTint="#4A5D9D"
         android:text="결제하기"
         android:textSize="15sp" />
 </LinearLayout>
