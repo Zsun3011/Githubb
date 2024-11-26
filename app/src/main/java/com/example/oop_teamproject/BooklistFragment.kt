@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.oop_teamproject.databinding.FragmentBooklistBinding
@@ -15,10 +14,7 @@ import com.example.oop_teamproject.viewmodel.BooksViewModel
 class BooklistFragment : Fragment() {
 
     private var binding: FragmentBooklistBinding? = null
-
-    private val viewModel: BooksViewModel by viewModels { //by viewModels -> ViewModel을 프래그먼트에서 사용할 수 있도록 Jetpack이 제공하는 기능
-        BooksViewModel.Companion.Factory(BooksRepository())
-    }
+    private lateinit var viewModel: BooksViewModel // ViewModel 선언
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +28,8 @@ class BooklistFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel = BooksViewModel(BooksRepository()) //ViewModel 초기화
+
         binding?.apply {
             recBooklists.layoutManager = LinearLayoutManager(requireContext())
 
@@ -43,7 +41,8 @@ class BooklistFragment : Fragment() {
                         putString("bookName", selectedBook.name)
                         putInt("bookPrice", selectedBook.price)
                     }
-                    findNavController().navigate(R.id.action_booklistFragment_to_bookreservFragment, bundle) //bookreservfragment로 이동하면서 번들에 있는 요소들 전달
+                    findNavController().navigate(R.id.action_booklistFragment_to_bookreservFragment, bundle)
+                    //bookreservfragment로 이동하면서 번들에 있는 요소들 전달
                 }
             }
 
