@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frg_Nav"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".PaymentSystemFragment">
 
@@ -19,7 +19,7 @@
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:paddingLeft="30dp"
         android:text="| 인쇄 정보"
         android:textSize="16sp"
@@ -28,8 +28,7 @@
     <TextView
         android:id="@+id/dataset"
         android:layout_width="match_parent"
-        android:layout_height="232dp"
-        android:padding="30dp"
+        android:layout_height="183dp"
         android:paddingLeft="30dp"
         android:textSize="18sp" />
 
@@ -49,12 +48,22 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
             android:textSize="20sp"
             android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:text="원"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <TextView
@@ -65,15 +74,57 @@
         android:textSize="16sp"
         android:textStyle="bold" />
 
-    <com.google.android.material.chip.Chip
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:text="2024.10.21 오전 11:00"
-        android:textSize="18sp" />
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/view6"
+            android:layout_width="53dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <EditText
+            android:id="@+id/editTextDate"
+            android:layout_width="151dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:focusable="true"
+            android:hint="YYYY/MM/DD"
+            android:inputType="date"
+            android:padding="15dp" />
+
+        <View
+            android:id="@+id/view9"
+            android:layout_width="53dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <View
+            android:id="@+id/view8"
+            android:layout_width="53dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <EditText
+            android:id="@+id/editTextTime"
+            android:layout_width="165dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="time" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="53dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="197dp"
         android:layout_height="wrap_content"
         android:padding="30dp"
         android:text="| 결제 수단 선택"
@@ -117,4 +168,5 @@
         android:backgroundTint="#4A5D9D"
         android:text="결제하기"
         android:textSize="15sp" />
+
 </LinearLayout>
