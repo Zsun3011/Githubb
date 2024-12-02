@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import java.util.UUID
 
 class UsersViewmodel : ViewModel() {
+
     private val repository = UsersRepository() // Repository 인스턴스 생성
 
     private val _files = MutableLiveData<List<FileItem>>() // FileItem 리스트를 LiveData로
@@ -61,13 +62,13 @@ class UsersViewmodel : ViewModel() {
     }
 
     // FileItem을 Map으로 변환하는 확장 함수
-    private fun FileItem.toMap(): Map<String, Any> {
-        return mapOf(
+    private fun FileItem.toMap(): Map<String, Any> = mapOf(
             "color" to color,
             "direction" to direction,
             "page" to page,
             "quantity" to quantity,
-            "type" to type
-        )
-    }
+            "type" to type,
+            "name" to name
+    )
+
 }

@@ -1,8 +1,7 @@
-// UserRepository.kt
 package com.example.oop_teamproject.repository
 
 import com.example.oop_teamproject.model.User
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import kotlinx.coroutines.tasks.await
 
 class UsersRepository {
@@ -22,6 +21,18 @@ class UsersRepository {
         ref.child(newKey).setValue(fileItem).await()
     }
 
+    // 모든 사용자 파일 정보를 가져옴
+    suspend fun getFiles(): List<Map<String, Any>> {
+        val snapshot = ref.get().await()
+        val files = mutableListOf<Map<String, Any>>()
+
+        for (child in snapshot.children) {
+            val item = child.value as Map<String, Any>
+            files.add(item)
+        }
+        return files
+    }
+
     // 회원가입 함수
     suspend fun registerUser(user: User): Boolean {
         return try {
@@ -37,9 +48,9 @@ class UsersRepository {
         return try {
             val snapshot = db.child(username).get().await()
             if (snapshot.exists()) {
-                    val storedPassword = snapshot.child("password").getValue(String::class.java)
-                    return storedPassword == password // 로그인 성공
-                }
+                val storedPassword = snapshot.child("password").getValue(String::class.java)
+                return storedPassword == password // 로그인 성공
+            }
             false  // 로그인 실패
         } catch (e: Exception) {
             false

@@ -28,6 +28,7 @@ class FilereservFragment : Fragment() {
     private lateinit var usersViewModel: UsersViewmodel
     private lateinit var filesViewModel: FilesViewmodel
 
+    //뷰 생성
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,36 +37,43 @@ class FilereservFragment : Fragment() {
         return binding.root
     }
 
+    //뷰 초기화
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //뷰모델 인스턴스 초기화
         usersViewModel = ViewModelProvider(this).get(UsersViewmodel::class.java)
         filesViewModel = ViewModelProvider(this).get(FilesViewmodel::class.java)
+
         // Spinner 설정
         setupSpinners()
 
-        // 버튼 클릭 리스너
+        // 버튼 클릭 리스너 설정
         binding.saveButton.setOnClickListener { saveData() }
         binding.fileupload.setOnClickListener { uploadFile() }
 
     }
 
+    // Spinners 초기화
     private fun setupSpinners() {
         setupSpinner(binding.types, typeOptions)
         setupSpinner(binding.direction, directionOptions)
         setupSpinner(binding.colors, colorOptions)
     }
 
+    //스피너 설정
     private fun setupSpinner(spinner: Spinner, options: Array<String>) {
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, options)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
     }
 
+    //인쇄 설정 데이터 저장
     private fun saveData() {
+
         // 입력 값 가져오기
-        val page = binding.editTextText.text.toString()
-        val quantity = binding.editTextNumber3.text.toString().toIntOrNull()
+        val page = binding.filepage.text.toString()
+        val quantity = binding.filequantity.text.toString().toIntOrNull()
 
         // 입력 유효성 검사
         if (page.isEmpty() || quantity == null || quantity <= 0) {
@@ -90,14 +98,17 @@ class FilereservFragment : Fragment() {
         findNavController().navigate(R.id.action_filereservFragment_to_paymentSystemFragment)
     }
 
+    //파일 업로드
     private fun uploadFile() {
-        filesViewModel.fetchFiles() // Use ViewModel to fetch files
+        filesViewModel.fetchFiles()
         filesViewModel.fileNames.observe(viewLifecycleOwner) { fileNames ->
             if (fileNames.isNotEmpty()) {
-                showFileSelectionDialog(fileNames) // Show dialog with fetched file names
+                showFileSelectionDialog(fileNames)
             }
         }
     }
+
+    //파일 선택
     private fun showFileSelectionDialog(fileNames: List<String>) {
         AlertDialog.Builder(requireContext()).apply {
             setTitle("파일 선택")
