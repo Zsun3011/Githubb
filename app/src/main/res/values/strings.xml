@@ -2,4 +2,6 @@
     <string name="app_name">OOP_TeamProject</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="print_info_format">파일명: %6$s\n인쇄 페이지: %1$s\n수량: %2$d\n유형: %3$s\n방향: %4$s\n색상: %5$s\n</string>
 </resources>
