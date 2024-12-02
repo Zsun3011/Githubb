@@ -16,7 +16,8 @@ class BooksRepository {
             val bookSnapshot = snapshot.child(id) //해당 책 ID에 해당하는 데이터 가져오기
             val name = bookSnapshot.child("name").getValue(String::class.java) ?: "Unknown"
             val price = bookSnapshot.child("price").getValue(Int::class.java) ?: 0
-            books.add(Book(name, price)) //가져온 name과 price로 Book 객체 만들어 리스트 추가
+            val description = bookSnapshot.child("description").getValue(String::class.java) ?: "설명이 없습니다."
+            books.add(Book(name, price, description)) //가져온 name과 price로 Book 객체 만들어 리스트 추가
         }
         return books
     }
