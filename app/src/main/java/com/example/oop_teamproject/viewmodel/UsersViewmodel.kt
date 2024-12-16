@@ -44,7 +44,7 @@ class UsersViewmodel : ViewModel() {
         return UUID.randomUUID().toString()
     }
     // 파일 정보를 Firebase에 저장
-    fun saveFileItem(fileItem: FileItem) {
+    fun saveFileItem(fileItem: FileItem) {;
         viewModelScope.launch {
             try {
                 repository.saveFileItem(fileItem.toMap()) // 저장하기 전에 Map으로 변환

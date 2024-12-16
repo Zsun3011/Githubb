@@ -50,14 +50,14 @@ class LoginFragment : Fragment() {
         }
 
         // 로그인 결과 관찰
-        usersViewModel.loginResult.observe(viewLifecycleOwner, { success ->
+        usersViewModel.loginResult.observe(viewLifecycleOwner) { success ->
             if (success) {
                 Toast.makeText(requireContext(), "로그인 성공", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_loginFragment_to_booksearchFragment)
             } else {
                 Toast.makeText(requireContext(), "로그인 실패", Toast.LENGTH_SHORT).show()
             }
-        })
+        }
     }
 
     override fun onDestroyView() {
