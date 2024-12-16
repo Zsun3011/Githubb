@@ -9,7 +9,7 @@ import com.google.firebase.database.database
 class PaymentRepository {
     private val databaseReference = FirebaseDatabase.getInstance().getReference("payment")
 
-    // payment 노드의 키 가져오기
+    // payment 노드의 키 가져오기.
     fun fetchPaymentKeys(onSuccess: (List<String>) -> Unit, onFailure: (DatabaseError) -> Unit) {
         databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {

@@ -10,12 +10,8 @@ class PaymentViewmodel : ViewModel() {
     private val repository: PaymentRepository = PaymentRepository()
     private val _paymentKeys = MutableLiveData<List<String>>()
     val paymentKeys: LiveData<List<String>> get() = _paymentKeys
-
     private val _cardValue = MutableLiveData<Long>()
-    val cardValue: LiveData<Long> get() = _cardValue
-
     private val _remainingAmount = MutableLiveData<Long>()
-    val remainingAmount: LiveData<Long> get() = _remainingAmount
 
     // payment 키 가져오기
     fun fetchPaymentKeys() {

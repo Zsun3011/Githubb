@@ -107,7 +107,7 @@ class FilereservFragment : Fragment() {
             return // 유효하지 않다면 함수 종료
         }
 
-        // Bundle에 인쇄 설정 정보 추가
+        // Bundle에 인쇄 설정 정보 추가.
         val bookReservationBundle = Bundle().apply {
             putString("source", "fileReservation")
             putString("page", page)

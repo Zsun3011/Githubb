@@ -14,8 +14,6 @@
         android:layout_marginTop="30dp"
         android:backgroundTint="#000" />
 
-    <!-- 스페이스 추가 -->
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
