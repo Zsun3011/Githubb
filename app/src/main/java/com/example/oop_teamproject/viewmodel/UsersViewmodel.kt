@@ -68,7 +68,10 @@ class UsersViewmodel : ViewModel() {
             "page" to page,
             "quantity" to quantity,
             "type" to type,
-            "name" to name
+            "name" to name,
+            "date" to date,   // 날짜 추가
+            "time" to time,   // 시간 추가
+            "price" to price  // 가격 추가
     )
 
 }

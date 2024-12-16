@@ -68,9 +68,7 @@ class FilereservFragment : Fragment() {
         spinner.adapter = adapter
     }
 
-    //인쇄 설정 데이터 저장
     private fun saveData() {
-
         // 입력 값 가져오기
         val page = binding.filepage.text.toString()
         val quantity = binding.filequantity.text.toString().toIntOrNull()
@@ -81,22 +79,20 @@ class FilereservFragment : Fragment() {
             return // 유효하지 않다면 함수 종료
         }
 
-        // FileItem 생성
-        val fileItem = FileItem(
-            page = page,
-            quantity = quantity,
-            type = binding.types.selectedItem.toString(),
-            direction = binding.direction.selectedItem.toString(),
-            color = binding.colors.selectedItem.toString(),
-            name = binding.filename.text.toString()
-        )
-
-        // ViewModel을 통해 데이터 저장
-        usersViewModel.saveFileItem(fileItem)
+        // Bundle에 인쇄 설정 정보 추가
+        val bundle = Bundle().apply {
+            putString("page", page)
+            putInt("quantity", quantity)
+            putString("type", binding.types.selectedItem.toString())
+            putString("direction", binding.direction.selectedItem.toString())
+            putString("color", binding.colors.selectedItem.toString())
+            putString("name", binding.filename.text.toString())
+        }
 
         // 네비게이션
-        findNavController().navigate(R.id.action_filereservFragment_to_paymentSystemFragment)
+        findNavController().navigate(R.id.action_filereservFragment_to_paymentSystemFragment, bundle)
     }
+
 
     //파일 업로드
     private fun uploadFile() {

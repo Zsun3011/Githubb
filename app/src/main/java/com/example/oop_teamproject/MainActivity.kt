@@ -51,6 +51,29 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        // 바텀 네비게이션 아이템 클릭 리스너 설정
+        binding.bottomNav.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.booksearchFragment -> {
+                    navController.navigate(R.id.booksearchFragment)
+                    true
+                }
+                R.id.bookreservFragment -> {
+                    navController.navigate(R.id.bookreservFragment)
+                    true
+                }
+                R.id.filereservFragment -> {
+                    navController.navigate(R.id.filereservFragment)
+                    true
+                }
+                R.id.checkpageFragment -> {
+                    navController.navigate(R.id.checkpageFragment)
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

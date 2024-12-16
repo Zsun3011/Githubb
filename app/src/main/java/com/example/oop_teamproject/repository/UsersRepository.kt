@@ -6,7 +6,7 @@ import kotlinx.coroutines.tasks.await
 
 class UsersRepository {
     private val db = FirebaseDatabase.getInstance().getReference("users")
-    private val ref = FirebaseDatabase.getInstance().getReference("users/userID01/items")
+    private val ref = FirebaseDatabase.getInstance().getReference("users/userID01/items/files")
 
     // 사용자 파일 정보를 Firebase에 저장
     suspend fun saveFileItem(fileItem: Map<String, Any>) {
