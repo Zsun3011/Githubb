@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.oop_teamproject.repository.UsersRepository
 import com.example.oop_teamproject.model.FileItem // FileItem 데이터 클래스 임포트
+import com.example.oop_teamproject.Reserved
 import kotlinx.coroutines.launch
 
 class UsersViewmodel : ViewModel() {
@@ -14,6 +15,8 @@ class UsersViewmodel : ViewModel() {
 
     private val _files = MutableLiveData<List<FileItem>>() // FileItem 리스트를 LiveData로
     val files: LiveData<List<FileItem>> get() = _files
+    private val _items = MutableLiveData<List<Reserved>>() // Reserved 리스트를 LiveData로
+    val items: LiveData<List<Reserved>> get() = _items
 
     // 파일 정보를 Firebase에 저장
     fun saveFileItem(fileItem: FileItem) {
@@ -21,6 +24,30 @@ class UsersViewmodel : ViewModel() {
             try {
                 repository.saveFileItem(fileItem.toMap()) // 저장하기 전에 Map으로 변환
                 updateFileList(fileItem) // 파일 리스트 업데이트
+            } catch (e: Exception) {
+                // 에러 처리
+            }
+        }
+    }
+
+    //Firebase에서 items 데이터 가져오기
+    fun fetchUserItems(userID: String) {
+        viewModelScope.launch {
+            try {
+                val userItems = repository.fetchUserItems(userID)
+                _items.value = userItems
+            } catch (e: Exception) {
+                // 에러 처리
+            }
+        }
+    }
+
+    //특정 항목 삭제
+    fun removeUserItem(userID: String, itemKey: String, itemType: String) {
+        viewModelScope.launch {
+            try {
+                repository.deleteUserItem(userID, itemKey, itemType)
+                fetchUserItems(userID) // 삭제 후 리스트 갱신
             } catch (e: Exception) {
                 // 에러 처리
             }
