@@ -73,4 +73,42 @@
             android:textColorHint="#365094" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        app:layout_constraintTop_toBottomOf="@id/input_layout"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/buttonLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="로그인"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:backgroundTint="#FCF5FD"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/buttonSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="회원가입"
+            android:textColor="@color/black"
+            android:backgroundTint="#FCF5FD"
+            android:textSize="20sp"
+            android:layout_weight="1"/>
+
+
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -54,7 +54,7 @@ class BooksAdapter(
             // 팝업창 텍스트뷰에 책 정보 설정
             dialogBinding.txtPopupBookName.text = book.name
             dialogBinding.txtPopupBookPrice.text = "${book.price}원"
-            dialogBinding.txtPopupBookDescription.text = "${book.name}입니다" // 설명 추가
+            dialogBinding.txtPopupBookDescription.text = book.description // 설명 추가
 
             // '결제 페이지로' 버튼 클릭 시 동작
             dialogBinding.btnToPayment.setOnClickListener {
