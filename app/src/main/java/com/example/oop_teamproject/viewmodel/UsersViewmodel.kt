@@ -4,19 +4,26 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.oop_teamproject.model.User
 import com.example.oop_teamproject.repository.UsersRepository
 import com.example.oop_teamproject.model.FileItem // FileItem 데이터 클래스 임포트
 import com.example.oop_teamproject.Reserved
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 class UsersViewmodel : ViewModel() {
-
     private val repository = UsersRepository() // Repository 인스턴스 생성
 
     private val _files = MutableLiveData<List<FileItem>>() // FileItem 리스트를 LiveData로
     val files: LiveData<List<FileItem>> get() = _files
     private val _items = MutableLiveData<List<Reserved>>() // Reserved 리스트를 LiveData로
     val items: LiveData<List<Reserved>> get() = _items
+
+    private val _signUpResult = MutableLiveData<Boolean>()
+    val signUpResult: LiveData<Boolean> get() = _signUpResult
+
+    private val _loginResult = MutableLiveData<Boolean>()
+    val loginResult: LiveData<Boolean> get() = _loginResult
 
     // 파일 정보를 Firebase에 저장
     fun saveFileItem(fileItem: FileItem) {
@@ -52,6 +59,27 @@ class UsersViewmodel : ViewModel() {
                 // 에러 처리
             }
         }
+    }
+
+    // 회원가입
+    fun signUp(user: User) {
+        viewModelScope.launch {
+            val result = repository.registerUser(user)
+            _signUpResult.postValue(result)
+        }
+    }
+
+    // 로그인
+    fun login(username: String, password: String) {
+        viewModelScope.launch {
+            val result = repository.loginUser(username, password)
+            _loginResult.postValue(result)
+        }
+    }
+
+    // UID 생성 함수
+    fun generateUid(): String {
+        return UUID.randomUUID().toString()
     }
 
     private fun updateFileList(fileItem: FileItem) {

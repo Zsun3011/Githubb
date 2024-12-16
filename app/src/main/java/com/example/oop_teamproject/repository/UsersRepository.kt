@@ -3,7 +3,7 @@ package com.example.oop_teamproject.repository
 import com.google.firebase.database.*
 import kotlinx.coroutines.tasks.await
 import com.example.oop_teamproject.Reserved
-
+import com.example.oop_teamproject.model.User
 class UsersRepository {
 
     private val ref = FirebaseDatabase.getInstance().getReference("users/userID01/items/files")
@@ -49,6 +49,31 @@ class UsersRepository {
             }
         }
         return result
+    }
+
+    private val db = FirebaseDatabase.getInstance().getReference("users")
+
+    suspend fun registerUser(user: User): Boolean {
+        return try {
+            // username을 키로 사용하여 저장
+            db.child(user.username).setValue(user).await()
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    suspend fun loginUser(username: String, password: String): Boolean {
+        return try {
+            val snapshot = db.child(username).get().await()
+            if (snapshot.exists()) {
+                val storedPassword = snapshot.child("password").getValue(String::class.java)
+                return storedPassword == password  // 비밀번호 비교
+            }
+            false
+        } catch (e: Exception) {
+            false
+        }
     }
 
     suspend fun deleteUserItem(userID: String, itemKey: String, itemType: String) {
