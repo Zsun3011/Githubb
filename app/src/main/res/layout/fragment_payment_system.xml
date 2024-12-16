@@ -133,23 +133,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="65dp"
         android:orientation="horizontal"
         android:weightSum="2">
-
-        <Button
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:backgroundTint="#AFB9D4"
-            android:text="계좌이체"
-            android:textColor="#365094" />
 
         <View
             android:layout_width="20dp"
             android:layout_height="0dp" />
 
         <Button
+            android:id="@+id/payment"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -157,6 +150,28 @@
             android:backgroundTint="#AFB9D4"
             android:text="카드"
             android:textColor="#365094" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="26dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="355dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="30dp"
+            android:paddingTop="5dp"
+            android:text="| 선택된 카드" />
+
+        <TextView
+            android:id="@+id/cardname"
+            android:layout_width="273dp"
+            android:layout_height="match_parent"
+            android:paddingTop="5dp"
+            android:text="카드를 선택해주세요" />
     </LinearLayout>
 
     <Button
