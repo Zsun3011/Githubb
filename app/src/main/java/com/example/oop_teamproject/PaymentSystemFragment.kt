@@ -39,7 +39,14 @@ class PaymentSystemFragment : Fragment() {
     private var name: String? = null
     private var selectedKey: String? = null
     private var price: Int = 0
+
+    // 다이얼로그 선택 여부를 추적하는 변수
+    private var isDateSelected = false
+    private var isTimeSelected = false
     private var isfile: Boolean = false
+    private var isDialogShowing = false // 다이얼로그가 열려 있는지 여부를 추적하는 변수
+    private var isUserTriggered = false // 사용자가 버튼을 눌렀는지 여부를 추적하는 변수
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -112,12 +119,17 @@ class PaymentSystemFragment : Fragment() {
         // 결제 키 가져오기 버튼 클릭 리스너
         binding?.payment?.setOnClickListener {
             fetchPaymentKeys()
+            isUserTriggered = true
         }
+
         // LiveData 관찰
         paymentViewModel.paymentKeys.observe(viewLifecycleOwner) { keys ->
-            if (keys.isNotEmpty()) {
-                showPaymentKeysDialog(keys) // 다이얼로그로 키 보여주기
-            } else {
+            if (keys.isNotEmpty() && isUserTriggered) {
+                // 다이얼로그가 열려 있지 않은 경우에만 열기
+                if (!isDialogShowing) {
+                    showPaymentKeysDialog(keys) // 다이얼로그로 키 보여주기
+                }
+            } else if (keys.isEmpty()) {
                 Toast.makeText(requireContext(), "결과가 없습니다.", Toast.LENGTH_SHORT).show()
             }
         }
@@ -126,14 +138,15 @@ class PaymentSystemFragment : Fragment() {
         // 홈으로 가는 버튼 클릭 리스너
         binding?.gotohome?.setOnClickListener {
             // selectedKey와 price가 null이 아닌지 확인 후 호출
-            if (selectedKey != null) {
+            if (selectedKey != null && isDateSelected && isTimeSelected) {
                 // 카드 값 가져오기
                 paymentViewModel.calculate(selectedKey!!, price).observe(viewLifecycleOwner) { cardValue ->
                     // cardValue가 price보다 작은지 확인
                     if (cardValue < price) {
                         // 잔액을 확인해주세요 메시지 표시
                         Toast.makeText(requireContext(), "잔액을 확인해주세요", Toast.LENGTH_SHORT).show()
-                    } else {
+                    }
+                    else {
                         if (isfile) {
                             saveFileData()
                         } else {
@@ -143,7 +156,7 @@ class PaymentSystemFragment : Fragment() {
                     }
                 }
             } else {
-                Log.d("PaymentDialog", "No selected key to process.")
+                Toast.makeText(requireContext(), "결제정보를 선택해주세요.", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -163,6 +176,7 @@ class PaymentSystemFragment : Fragment() {
                 val formattedDate =
                     String.format("%04d/%02d/%02d", selectedYear, selectedMonth + 1, selectedDay)
                 editTextDate.setText(formattedDate)
+                isDateSelected = true // 날짜가 선택되었음을 표시
             }, year, month, day)
 
         datePickerDialog.show()
@@ -183,6 +197,7 @@ class PaymentSystemFragment : Fragment() {
                 // 시간 문자열 생성
                 val formattedTime = String.format("%02d:%02d %s", hour12, selectedMinute, amPm)
                 editTextTime.setText(formattedTime)
+                isTimeSelected = true // 시간이 선택되었음을 표시
             }, hour, minute, false)
 
         timePickerDialog.show()
@@ -256,6 +271,8 @@ class PaymentSystemFragment : Fragment() {
     }
 
     private fun showPaymentKeysDialog(keys: List<String>) {
+        isDialogShowing = true // 다이얼로그가 열리기 시작함을 표시
+
         AlertDialog.Builder(requireContext()).apply {
             setTitle("Payment")
             setItems(keys.toTypedArray()) { _, which ->
@@ -269,11 +286,16 @@ class PaymentSystemFragment : Fragment() {
                 // 로그 추가: selectedKey와 price 확인
                 Log.d("PaymentDialog", "Selected Key: $selectedKey, Price: $price")
             }
-            setNegativeButton("취소", null)
+            setNegativeButton("취소") { _, _ ->
+                isDialogShowing = false // 다이얼로그가 닫힐 때 상태 업데이트
+            }
+            setOnDismissListener {
+                isDialogShowing = false // 다이얼로그가 닫힐 때 상태 업데이트
+                isUserTriggered = false // 사용자가 버튼을 눌렀음을 초기화
+            }
             show()
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
