@@ -31,7 +31,7 @@ class BookreservFragment : Fragment() {
 
         // 화면에 도서 정보 표시
         binding?.apply {
-            textView9.text = "도서명: $bookName"
+            textView9.text =  "$bookName"
 
             // 예약 버튼 클릭 시 이벤트 처리
             gotopayment.setOnClickListener {
