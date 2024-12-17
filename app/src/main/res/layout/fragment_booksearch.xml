@@ -16,10 +16,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.162">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <EditText
+            android:id="@+id/et_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="제목 또는 저자명 입력" />
+            android:hint="제목 또는 저자명 입력"
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -28,7 +30,7 @@
         android:layout_height="30dp"
         android:layout_marginTop="16dp"
         android:backgroundTint="#AFB9D4"
-        android:text="과목별 분류로 찾기"
+        android:text="검색 결과 보기"
         android:textColor="#365094"
         android:textSize="15sp"
         android:textAlignment="center"
