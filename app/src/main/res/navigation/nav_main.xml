@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_booksearchFragment_to_checkpageFragment"
             app:destination="@id/checkpageFragment" />
+        <action
+            android:id="@+id/action_booksearchFragment_to_bookreservFragment"
+            app:destination="@id/bookreservFragment" />
     </fragment>
     <fragment
         android:id="@+id/filereservFragment"

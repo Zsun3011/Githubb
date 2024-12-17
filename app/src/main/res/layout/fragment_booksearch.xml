@@ -65,9 +65,37 @@
                 android:textColor="#365094"
                 android:textSize="15sp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="100dp" />
+            <Button
+                android:id="@+id/btnlist"
+                android:layout_margin="10dp"
+                android:backgroundTint="#CACACA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="소프트웨어학과"
+                android:textSize="15sp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:text="항공운항학과"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:background="@drawable/rounded_background"
+                android:backgroundTint="#CACACA"/>
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:text="경영학과"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:background="@drawable/rounded_background"
+                android:backgroundTint="#CACACA"/>
 
             <TextView
                 android:layout_width="100dp"
@@ -84,16 +112,5 @@
                 android:layout_height="100dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-    <Button
-        android:id="@+id/btnlist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="188dp"
-        android:text="list"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.585"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
