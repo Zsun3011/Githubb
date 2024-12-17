@@ -5,12 +5,11 @@ import kotlinx.coroutines.tasks.await
 import com.example.oop_teamproject.Reserved
 import com.example.oop_teamproject.model.User
 class UsersRepository {
-
-    private val ref = FirebaseDatabase.getInstance().getReference("users/userID01/items/files")
     private val database = FirebaseDatabase.getInstance()
 
     // 사용자 파일 정보를 Firebase에 저장
-    suspend fun saveFileItem(fileItem: Map<String, Any>) {
+    suspend fun saveFileItem(fileItem: Map<String, Any?>) {
+        val ref = FirebaseDatabase.getInstance().getReference("users/userID01/items/files")
         // 현재 저장된 항목 개수 가져오기
         val snapshot = ref.get().await()
         val count = snapshot.childrenCount
@@ -20,6 +19,16 @@ class UsersRepository {
 
         // 새로운 항목 저장
         ref.child(newKey).setValue(fileItem).await()
+    }
+    // 사용자 도서 정보를 Firebase에 저장
+    suspend fun saveBookItem(bookItem: Map<String, Any?>) {
+        val ref = FirebaseDatabase.getInstance().getReference("users/userID01/items/books")
+        val snapshot = ref.get().await()
+        val count = snapshot.childrenCount
+
+        // 새로운 키 생성 (itemsID01, itemsID02, ...)
+        val newKey = "itemsID${String.format("%02d", count + 1)}"
+        ref.child(newKey).setValue(bookItem).await()
     }
 
     suspend fun fetchUserItems(userID: String): List<Reserved> {

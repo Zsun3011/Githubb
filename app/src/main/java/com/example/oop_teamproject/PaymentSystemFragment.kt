@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.oop_teamproject.databinding.FragmentPaymentSystemBinding
+import com.example.oop_teamproject.model.BookItem
 import com.example.oop_teamproject.model.FileItem
 import com.example.oop_teamproject.viewmodel.PaymentViewmodel
 import com.example.oop_teamproject.viewmodel.UsersViewmodel
@@ -35,9 +36,10 @@ class PaymentSystemFragment : Fragment() {
     private lateinit var type: String
     private lateinit var direction: String
     private lateinit var color: String
-    private lateinit var name: String
+    private var name: String? = null
     private var selectedKey: String? = null
     private var price: Int = 0
+    private var isfile: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,19 +80,21 @@ class PaymentSystemFragment : Fragment() {
 
                 // 가격 계산 및 표시
                 calculatePrice(page)
+                isfile = true
 
             } else if (source == "bookReservation") {
                 // 도서 예약 페이지에서 전달된 데이터 처리
-                val bookName = bundle.getString("bookName") ?: ""
+                name = bundle.getString("bookName") ?: ""
                 val bookPrice = bundle.getInt("bookPrice")
                 quantity = bundle.getInt("quantity")
 
                 // 도서 예약 관련 데이터 표시
-                textView.text = getString(R.string.book_info_format, bookName, quantity, bookPrice)
+                textView.text = getString(R.string.book_info_format, name, quantity, bookPrice)
 
                 // 가격 계산 및 표시
                 price = bookPrice * quantity // 가격을 bookPrice로 설정
                 priceTextView.text = price.toString()
+                isfile = false
             }
 
         }
@@ -118,10 +122,9 @@ class PaymentSystemFragment : Fragment() {
             }
         }
 
+
         // 홈으로 가는 버튼 클릭 리스너
         binding?.gotohome?.setOnClickListener {
-
-
             // selectedKey와 price가 null이 아닌지 확인 후 호출
             if (selectedKey != null) {
                 // 카드 값 가져오기
@@ -131,9 +134,11 @@ class PaymentSystemFragment : Fragment() {
                         // 잔액을 확인해주세요 메시지 표시
                         Toast.makeText(requireContext(), "잔액을 확인해주세요", Toast.LENGTH_SHORT).show()
                     } else {
-                        // 정상적으로 처리할 경우 추가 로직
-                        // 예: 다음 화면으로 이동
-                        saveData() // Firebase에 데이터 저장
+                        if (isfile) {
+                            saveFileData()
+                        } else {
+                            saveBookData()
+                        }
                         findNavController().navigate(R.id.action_paymentSystemFragment_to_booksearchFragment)
                     }
                 }
@@ -141,6 +146,7 @@ class PaymentSystemFragment : Fragment() {
                 Log.d("PaymentDialog", "No selected key to process.")
             }
         }
+
 
     }
 
@@ -208,7 +214,7 @@ class PaymentSystemFragment : Fragment() {
         }
     }
 
-    private fun saveData() {
+    private fun saveFileData() {
         // 가격을 정수로 변환 (기본값 0)
         val price = priceTextView.text.toString().toIntOrNull() ?: 0
 
@@ -227,6 +233,22 @@ class PaymentSystemFragment : Fragment() {
 
         // ViewModel을 통해 데이터 저장
         usersViewModel.saveFileItem(fileItem)
+    }
+    private fun saveBookData() {
+        // 가격을 정수로 변환 (기본값 0)
+        val price = priceTextView.text.toString().toIntOrNull() ?: 0
+
+        // FileItem 생성
+        val bookItem = BookItem(
+            quantity = quantity,
+            name = name,
+            price = price, // 가격 추가
+            date = editTextDate.text.toString(),  // 날짜 추가
+            time = editTextTime.text.toString()   // 시간 추가
+        )
+
+        // ViewModel을 통해 데이터 저장
+        usersViewModel.saveBookItem(bookItem)
     }
 
     private fun fetchPaymentKeys() {

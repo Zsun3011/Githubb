@@ -4,9 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.oop_teamproject.Book
 import com.example.oop_teamproject.model.User
 import com.example.oop_teamproject.repository.UsersRepository
 import com.example.oop_teamproject.model.FileItem // FileItem 데이터 클래스 임포트
+import com.example.oop_teamproject.model.BookItem
 import com.example.oop_teamproject.Reserved
 import kotlinx.coroutines.launch
 import java.util.UUID
@@ -18,6 +20,8 @@ class UsersViewmodel : ViewModel() {
     val files: LiveData<List<FileItem>> get() = _files
     private val _items = MutableLiveData<List<Reserved>>() // Reserved 리스트를 LiveData로
     val items: LiveData<List<Reserved>> get() = _items
+    private val _books = MutableLiveData<List<BookItem>>() // BookItem 리스트를 LiveData로
+    val books: LiveData<List<BookItem>> get() = _books
 
     private val _signUpResult = MutableLiveData<Boolean>()
     val signUpResult: LiveData<Boolean> get() = _signUpResult
@@ -29,8 +33,19 @@ class UsersViewmodel : ViewModel() {
     fun saveFileItem(fileItem: FileItem) {
         viewModelScope.launch {
             try {
-                repository.saveFileItem(fileItem.toMap()) // 저장하기 전에 Map으로 변환
-                updateFileList(fileItem) // 파일 리스트 업데이트
+                repository.saveFileItem(fileItem.toMap())
+                updateFileList(fileItem)
+            } catch (e: Exception) {
+                // 에러 처리
+            }
+        }
+    }
+    // 도서 정보를 Firebase에 저장
+    fun saveBookItem( bookItem: BookItem) {
+        viewModelScope.launch {
+            try {
+                repository.saveBookItem(bookItem.toMap())
+                updateBookList(bookItem)
             } catch (e: Exception) {
                 // 에러 처리
             }
@@ -88,8 +103,14 @@ class UsersViewmodel : ViewModel() {
         _files.value = currentList + fileItem
     }
 
+    private fun updateBookList(bookItem: BookItem) {
+        // 현재 파일 리스트를 가져와서 새로운 아이템 추가
+        val currentList = _books.value ?: emptyList()
+        _books.value = currentList + bookItem
+    }
+
     // FileItem을 Map으로 변환하는 확장 함수
-    private fun FileItem.toMap(): Map<String, Any> = mapOf(
+    private fun FileItem.toMap(): Map<String, Any?> = mapOf(
             "color" to color,
             "direction" to direction,
             "page" to page,
@@ -100,5 +121,12 @@ class UsersViewmodel : ViewModel() {
             "time" to time,   // 시간 추가
             "price" to price  // 가격 추가
     )
-
+    // BookItem을 Map으로 변환하는 확장 함수
+    private fun BookItem.toMap(): Map<String, Any?> = mapOf(
+        "name" to name,
+        "price" to price,
+        "quantity" to quantity,
+        "date" to date,   // 날짜 추가
+        "time" to time,   // 시간 추가
+    )
 }
