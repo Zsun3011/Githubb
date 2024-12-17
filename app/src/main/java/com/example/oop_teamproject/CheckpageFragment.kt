@@ -42,13 +42,13 @@ class CheckpageFragment : Fragment() {
 
         // 취소 버튼 클릭 이벤트 설정
         adapter.onCancelClicked = { reserved ->
-            val userID = "userID01" // 임시로 userID01 사용
+            val userID = "songic99"
             val itemType = if (reserved.type == "제본") "books" else "files" // 타입 확인
             viewModel.removeUserItem(userID, reserved.itemKey, itemType)
         }
 
         // Firebase 데이터 가져오기 (임시로 userID01 사용)
-        viewModel.fetchUserItems("userID01")
+        viewModel.fetchUserItems("songic99")
     }
 
     override fun onDestroyView() {
