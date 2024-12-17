@@ -43,7 +43,10 @@ class PaymentSystemFragment : Fragment() {
     // 다이얼로그 선택 여부를 추적하는 변수
     private var isDateSelected = false
     private var isTimeSelected = false
+
+    //file 인지 book 인지 확인
     private var isfile: Boolean = false
+
     private var isDialogShowing = false // 다이얼로그가 열려 있는지 여부를 추적하는 변수
     private var isUserTriggered = false // 사용자가 버튼을 눌렀는지 여부를 추적하는 변수
 
@@ -163,7 +166,7 @@ class PaymentSystemFragment : Fragment() {
 
     }
 
-
+    //날짜 선택 다이얼로그
     private fun showDatePickerDialog() {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -182,6 +185,7 @@ class PaymentSystemFragment : Fragment() {
         datePickerDialog.show()
     }
 
+    //시간 선택 다이얼로그
     private fun showTimePickerDialog() {
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
@@ -203,6 +207,7 @@ class PaymentSystemFragment : Fragment() {
         timePickerDialog.show()
     }
 
+    //파일 가격 계산
     private fun calculatePrice(page: String) {
         // 입력 문자열에서 숫자 추출
         val numbers = page.split("-").map { it.trim().toIntOrNull() }
@@ -229,6 +234,7 @@ class PaymentSystemFragment : Fragment() {
         }
     }
 
+    //파일 데이터 저장
     private fun saveFileData() {
         // 가격을 정수로 변환 (기본값 0)
         val price = priceTextView.text.toString().toIntOrNull() ?: 0
@@ -249,6 +255,8 @@ class PaymentSystemFragment : Fragment() {
         // ViewModel을 통해 데이터 저장
         usersViewModel.saveFileItem(fileItem)
     }
+
+    //도서 데이터 저장
     private fun saveBookData() {
         // 가격을 정수로 변환 (기본값 0)
         val price = priceTextView.text.toString().toIntOrNull() ?: 0
@@ -266,10 +274,12 @@ class PaymentSystemFragment : Fragment() {
         usersViewModel.saveBookItem(bookItem)
     }
 
+    //카드 목록 가져오기
     private fun fetchPaymentKeys() {
         paymentViewModel.fetchPaymentKeys() // payment 키 가져오기
     }
 
+    //카드 목록 보여주기
     private fun showPaymentKeysDialog(keys: List<String>) {
         isDialogShowing = true // 다이얼로그가 열리기 시작함을 표시
 

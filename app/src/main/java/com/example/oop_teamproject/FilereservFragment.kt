@@ -141,14 +141,6 @@ class FilereservFragment : Fragment() {
                     // 파일 이름을 TextView에 설정
                     val fileName = getFileName(results[0])
                     binding.filename.text = fileName
-                } else {
-                    // 다중 파일 선택 처리
-                    data.clipData?.let { clipData ->
-                        val numSelectedFiles = clipData.itemCount
-                        results = Array(numSelectedFiles) { index ->
-                            clipData.getItemAt(index).uri
-                        }
-                    }
                 }
             }
         } catch (e: Exception) {
