@@ -20,7 +20,6 @@ class BooklistFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentBooklistBinding.inflate(inflater, container, false)
         return binding?.root
     }
@@ -41,16 +40,15 @@ class BooklistFragment : Fragment() {
                         putString("bookName", selectedBook.name)
                         putInt("bookPrice", selectedBook.price)
                     }
-                    findNavController().navigate(R.id.action_booklistFragment_to_bookreservFragment, bundle)
                     //bookreservfragment로 이동하면서 번들에 있는 요소들 전달
+                    findNavController().navigate(R.id.action_booklistFragment_to_bookreservFragment, bundle)
                 }
             }
-
-            viewModel.fetchBooks(bookIDs)
+            viewModel.fetchBooks(bookIDs) //fetchBooks 메서드 호출해서 책 데이터 불러오기
         }
     }
 
-    override fun onDestroyView() {
+    override fun onDestroyView() { //메모리 누수 방지용. 바인딩 객체 해제
         super.onDestroyView()
         binding = null
     }

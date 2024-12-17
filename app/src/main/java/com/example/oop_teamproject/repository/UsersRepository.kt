@@ -33,17 +33,17 @@ class UsersRepository {
 
     suspend fun fetchUserItems(userID: String): List<Reserved> {
         val result = mutableListOf<Reserved>()
-        val userItemsRef = FirebaseDatabase.getInstance().getReference("users/$userID/items")
+        val userItemsRef = FirebaseDatabase.getInstance().getReference("users/$userID/items") //userID의 items 참고
 
         val snapshot = userItemsRef.get().await()
         snapshot.children.forEach { type ->
-            val typeName = when (type.key) {
+            val typeName = when (type.key) { //books 산하에 있는지 files 산하에 있는지 파악한 후 제본이나 파일 반환해주기
                 "books" -> "제본"
                 "files" -> "파일"
                 else -> "기타"
             }
             type.children.forEach { item ->
-                val data = item.value as? Map<*, *>
+                val data = item.value as? Map<*, *> //item 데이터를 Map으로 변경
                 if (data != null) {
                     result.add(
                         Reserved(
@@ -85,7 +85,7 @@ class UsersRepository {
         }
     }
 
-    suspend fun deleteUserItem(userID: String, itemKey: String, itemType: String) {
+    suspend fun deleteUserItem(userID: String, itemKey: String, itemType: String) { //'취소'버튼 관련. 아이템 삭제함수
         val itemPath = "users/$userID/items/$itemType/$itemKey"
         database.getReference(itemPath).removeValue().await()
     }

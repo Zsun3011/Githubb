@@ -8,7 +8,7 @@ import com.example.oop_teamproject.databinding.ListRevsBinding
 class ReservesAdapter(private var reserves: MutableList<Reserved>) :
     RecyclerView.Adapter<ReservesAdapter.Holder>() {
 
-    var onCancelClicked: ((Reserved) -> Unit)? = null
+    var onCancelClicked: ((Reserved) -> Unit)? = null //취소버튼 눌렀을 때 호출
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val binding = ListRevsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
