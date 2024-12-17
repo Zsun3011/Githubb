@@ -9,7 +9,7 @@ class UsersRepository {
 
     // 사용자 파일 정보를 Firebase에 저장
     suspend fun saveFileItem(fileItem: Map<String, Any?>) {
-        val ref = FirebaseDatabase.getInstance().getReference("users/userID01/items/files")
+        val ref = FirebaseDatabase.getInstance().getReference("users/songic99/items/files")
         // 현재 저장된 항목 개수 가져오기
         val snapshot = ref.get().await()
         val count = snapshot.childrenCount
@@ -22,7 +22,7 @@ class UsersRepository {
     }
     // 사용자 도서 정보를 Firebase에 저장
     suspend fun saveBookItem(bookItem: Map<String, Any?>) {
-        val ref = FirebaseDatabase.getInstance().getReference("users/userID01/items/books")
+        val ref = FirebaseDatabase.getInstance().getReference("users/songic99/items/books")
         val snapshot = ref.get().await()
         val count = snapshot.childrenCount
 
